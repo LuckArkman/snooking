@@ -2264,7 +2264,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -35077,7 +35077,7 @@ BoxCollider:
   m_Material: {fileID: 13400000, guid: 76f89bd5df48444d87601fcab0d911f0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -68175,7 +68175,7 @@ MonoBehaviour:
   stopBalls: 0
   inputSense: 0.01
   multiply: 3
-  distace: 0.7
+  distace: 0.8
   cameraMode: 1
   camDistance: 10
   tableSideLayerMask:
