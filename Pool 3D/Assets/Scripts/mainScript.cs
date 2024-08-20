@@ -4540,23 +4540,22 @@ public class mainScript : MonoBehaviour
 		}
 	}
 	
-	public (RaycastHit, bool) OnTriggerPlayer()
+	public (Collider, Vector3, bool) OnTriggerPlayer()
 	{
-		RaycastHit hit;
-		for (float angle = 0.0f; angle <= 360.0f; angle += 22.5f)
-		{
-			Vector3 forwardDirection = transform.forward;
-			Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
-			Vector3 rayDirection = rotation * forwardDirection;
+		float detectionRadius = 0.5f; // Define o raio da área de detecção
+		Vector3 detectionCenter = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+		Collider[] colliders = Physics.OverlapSphere(detectionCenter, detectionRadius);
 
-			Vector3 rayOrigin = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-			if (Physics.Raycast(rayOrigin, rayDirection, out hit, distace))
+		foreach (Collider collider in colliders)
+		{
+			if (collider.CompareTag("colSideTag"))
 			{
-				bool isCollisionWithSide = hit.transform.tag == "colSideTag";
-				return (hit, isCollisionWithSide);
+				// Calcula a normal como a direção do centro do objeto para o ponto de contato
+				Vector3 collisionNormal = (collider.ClosestPoint(detectionCenter) - detectionCenter).normalized;
+				return (collider, collisionNormal, true);
 			}
 		}
-		return (default(RaycastHit), false);
+		return (null, Vector3.zero, false);
 	}
 
 	
@@ -4567,17 +4566,17 @@ public class mainScript : MonoBehaviour
 		var resultadoTrigger = OnTriggerPlayer();
 		if (!stopBalls)
 		{
-			if (resultadoTrigger.Item2)
+			if (resultadoTrigger.Item3)
 			{
 				Debug.Log($"{nameof(ReboundTurningInvoke)} colidiu com {resultadoTrigger.Item1.transform.tag}");
 				Vector3 movimentoAtual = GetComponent<Rigidbody>().velocity;
-				Vector3 novaDirecao = Vector3.Reflect(movimentoAtual.normalized, resultadoTrigger.Item1.normal);
+				Vector3 novaDirecao = Vector3.Reflect(movimentoAtual.normalized, resultadoTrigger.Item2);
 
 				// Aplica a nova direção ao movimento da bola
 				GetComponent<Rigidbody>().velocity = novaDirecao * movimentoAtual.magnitude;
 
 				CancelInvoke(nameof(ReboundTurningInvoke));
-				aiHitForce = CalcularForcaImpacto(resultadoTrigger.Item1);
+				aiHitForce = CalcularForcaImpacto(resultadoTrigger.Item2);
 				aiCueAnimStart();
 				return;
 			}
@@ -4617,10 +4616,10 @@ public class mainScript : MonoBehaviour
 		}
 	}
 
-	private float CalcularForcaImpacto(RaycastHit hitInfo)
+	private float CalcularForcaImpacto(Vector3 hitInfo)
 	{
 		float distanciaAoAlvo = Vector3.Distance(thisTransform.position, guideColRingPosVec) +
-		                        Vector3.Distance(guideColRingPosVec, hitInfo.point);
+		                        Vector3.Distance(guideColRingPosVec, hitInfo);
 		return distanciaAoAlvo / 75f;
 	}
 
@@ -4858,7 +4857,7 @@ public class mainScript : MonoBehaviour
 			{
 				checkFixedUpdateBallTouch = false;
 			}
-			InvokeRepeating("ReboundTurningInvoke", 0.1f, 0.01f);
+			InvokeRepeating("ReboundTurningInvoke", 0.1f, 0.001f);
 			playSoundFX(cueballHitSounds[Random.Range(0, cueballHitSounds.Length)], 1f);
 			toggleSelectedCue(val: false);
 			showGuideWithType(GUIDE_TYPE.NO);
