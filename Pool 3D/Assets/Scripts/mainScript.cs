@@ -1898,6 +1898,7 @@ public class mainScript : MonoBehaviour
 
 	private void Update()
 	{
+		//MPLopes Functions
 		GetAllBallsVelocity();
 		if (cameraMode == CAMERA_MODE.NORMAL)
 		{
@@ -1905,6 +1906,7 @@ public class mainScript : MonoBehaviour
 			if (!aiPlaying && stopBalls) cameraSwitchMode(CAMERA_MODE.NORMAL);
 			if (!aiPlaying && !stopBalls) cameraSwitchMode(CAMERA_MODE.AI);
 		}
+		//Fim MPLopes Functions
 
 		updateMenuSystem();
 		if (curScreen == "Help" && Input.GetMouseButtonUp(0))
@@ -4528,6 +4530,7 @@ public class mainScript : MonoBehaviour
 		}
 	}
 	
+	//MPLopes Functions
 	private void OnDrawGizmos()
 	{
 		for (float i = 0; i <= 360.0f; i += 22.5f)
@@ -4540,47 +4543,50 @@ public class mainScript : MonoBehaviour
 		}
 	}
 	
-	public (Collider, Vector3, bool) OnTriggerPlayer()
+	public (RaycastHit, bool) OnTriggerPlayer()
 	{
-		float detectionRadius = 0.5f; // Define o raio da área de detecção
-		Vector3 detectionCenter = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-		Collider[] colliders = Physics.OverlapSphere(detectionCenter, detectionRadius);
-
-		foreach (Collider collider in colliders)
+		RaycastHit hit;
+		for (float angle = 0.0f; angle <= 360.0f; angle += 22.5f)
 		{
-			if (collider.CompareTag("colSideTag"))
+			Vector3 forwardDirection = transform.forward;
+			Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+			Vector3 rayDirection = rotation * forwardDirection;
+
+			Vector3 rayOrigin = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+			if (Physics.Raycast(rayOrigin, rayDirection, out hit, distace))
 			{
-				// Calcula a normal como a direção do centro do objeto para o ponto de contato
-				Vector3 collisionNormal = (collider.ClosestPoint(detectionCenter) - detectionCenter).normalized;
-				return (collider, collisionNormal, true);
+				bool isCollisionWithSide = hit.transform.tag == "colSideTag";
+				return (hit, isCollisionWithSide);
 			}
 		}
-		return (null, Vector3.zero, false);
+		return (default(RaycastHit), false);
 	}
+
 
 	
 	private void ReboundTurningInvoke()
 	{
-		Debug.Log($"{nameof(ReboundTurningInvoke)}");
+		
 
 		var resultadoTrigger = OnTriggerPlayer();
-		if (!stopBalls)
+		if(!stopBalls)
 		{
-			if (resultadoTrigger.Item3)
+			Debug.Log($"{nameof(ReboundTurningInvoke)}");
+			if (resultadoTrigger.Item2)
 			{
 				Debug.Log($"{nameof(ReboundTurningInvoke)} colidiu com {resultadoTrigger.Item1.transform.tag}");
 				Vector3 movimentoAtual = GetComponent<Rigidbody>().velocity;
-				Vector3 novaDirecao = Vector3.Reflect(movimentoAtual.normalized, resultadoTrigger.Item2);
+				Vector3 novaDirecao = Vector3.Reflect(movimentoAtual.normalized, resultadoTrigger.Item1.normal);
 
 				// Aplica a nova direção ao movimento da bola
 				GetComponent<Rigidbody>().velocity = novaDirecao * movimentoAtual.magnitude;
 
 				CancelInvoke(nameof(ReboundTurningInvoke));
-				aiHitForce = CalcularForcaImpacto(resultadoTrigger.Item2);
+				aiHitForce = CalcularForcaImpacto(resultadoTrigger.Item1);
 				aiCueAnimStart();
 				return;
 			}
-
+			
 			if (cueRotValueX > aiReboundTurningStartCueX + 360f)
 			{
 				CancelInvoke(nameof(ReboundTurningInvoke));
@@ -4589,6 +4595,7 @@ public class mainScript : MonoBehaviour
 			}
 		}
 		if (stopBalls) CancelInvoke(nameof(ReboundTurningInvoke));
+		
 	}
 
 	private bool VerificarAlvoRebote(int num)
@@ -4616,12 +4623,14 @@ public class mainScript : MonoBehaviour
 		}
 	}
 
-	private float CalcularForcaImpacto(Vector3 hitInfo)
+	private float CalcularForcaImpacto(RaycastHit hitInfo)
 	{
 		float distanciaAoAlvo = Vector3.Distance(thisTransform.position, guideColRingPosVec) +
-		                        Vector3.Distance(guideColRingPosVec, hitInfo);
+		                        Vector3.Distance(guideColRingPosVec, hitInfo.normal);
 		return distanciaAoAlvo / 75f;
 	}
+	
+	//Fim MPLopes Functions
 
 	private void aiShoot(int targetHole)
 	{
@@ -4743,6 +4752,7 @@ public class mainScript : MonoBehaviour
 
 	private void hitTheBall(float shotPower)
 	{
+		//MPLopes Functions
 		if (aiPlaying)
 		{
 			if (bGameOver)
@@ -4857,7 +4867,7 @@ public class mainScript : MonoBehaviour
 			{
 				checkFixedUpdateBallTouch = false;
 			}
-			InvokeRepeating("ReboundTurningInvoke", 0.1f, 0.001f);
+			InvokeRepeating("ReboundTurningInvoke", 0.01f, 0.001f);
 			playSoundFX(cueballHitSounds[Random.Range(0, cueballHitSounds.Length)], 1f);
 			toggleSelectedCue(val: false);
 			showGuideWithType(GUIDE_TYPE.NO);
@@ -4911,6 +4921,7 @@ public class mainScript : MonoBehaviour
 					break;
 			}
 		}
+		//Fim MPLopes Functions
 	}
 
 	private void updateGuide()
