@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Pool 3D.554868036.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="ExtensionMethods.cs" t="Include" />
+          <e p="HAND_MODE.cs" t="Include" />
+          <e p="MESSAGE_TYPE.cs" t="Include" />
+          <e p="MonoPInvokeCallbackAttribute.cs" t="Include" />
+          <e p="TURN.cs" t="Include" />
+          <e p="UnityStandardAssets" t="Include">
+            <e p="ImageEffects" t="Include">
+              <e p="BlurOptimized.cs" t="Include" />
+              <e p="PostEffectsBase.cs" t="Include" />
+            </e>
+          </e>
+          <e p="adMobScript.cs" t="Include" />
+          <e p="blinkingText.cs" t="Include" />
+          <e p="connectSocket.cs" t="Include" />
+          <e p="eachHolesForce.cs" t="Include" />
+          <e p="egHighScoresScript.cs" t="Include" />
+          <e p="fps.cs" t="Include" />
+          <e p="holesTrigger.cs" t="Include" />
+          <e p="logo.cs" t="Include" />
+          <e p="mainScript.cs" t="Include" />
+          <e p="messageBoxScript.cs" t="Include" />
+          <e p="musicPlayer.cs" t="Include" />
+          <e p="newGamePromo.cs" t="Include" />
+          <e p="notificationScript.cs" t="Include" />
+          <e p="rateGameMsgScript.cs" t="Include" />
+          <e p="rotateBall.cs" t="Include" />
+          <e p="rotateObject.cs" t="Include" />
+          <e p="setTextFromVariable.cs" t="Include" />
+          <e p="settingsArrowAnim.cs" t="Include" />
+          <e p="settingsSwitchGroup.cs" t="Include" />
+          <e p="toggleOnEnabled.cs" t="Include" />
+          <e p="uiAnimator.cs" t="Include" />
+          <e p="uiAnimatorPowerMeter.cs" t="Include" />
+          <e p="uiAnimatorSpinControl.cs" t="Include" />
+          <e p="uiBobAnim.cs" t="Include" />
+          <e p="uiPingPongAnim.cs" t="Include" />
+          <e p="uiTabAnimate.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Pool 3D.sln" t="IncludeFlat" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="Temp/obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

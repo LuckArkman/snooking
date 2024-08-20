@@ -1,0 +1,17 @@
+{
+    "name": "snookerking.Interfaces",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0b02e12107f578258ad75e22d173453e",
+        "GUID:0aa8d70d198f973da926fc490c05f815"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,10 @@
+public enum GAME_MODE
+{
+    EIGHT_BALL,
+    NINE_BALL,
+    UK_EIGHT_BALL,
+    TIME_TRIAL,
+    MATRIX,
+    PRACTICE,
+    SNOOKER
+}

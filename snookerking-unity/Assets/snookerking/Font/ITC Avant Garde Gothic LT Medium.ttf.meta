@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c5d9bdd5d97248c2b34ceb9c517b4345
+timeCreated: 1629971840
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: "ITC Avant Garde Gothic LT Medium"
+  fontNames:
+  - AvantGarde LT Medium
+  fallbackFontReferences: []
+  customCharacters:
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData:
+  assetBundleName: 
+  assetBundleVariant: 
