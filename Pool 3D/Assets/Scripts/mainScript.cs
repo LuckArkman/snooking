@@ -1924,7 +1924,14 @@ public class mainScript : MonoBehaviour
 			}
 		}
 
-		moveCueParent();
+		if (cameraMode == CAMERA_MODE.NORMAL)
+		{
+			if (aiPlaying && !stopBalls)cameraSwitchMode(CAMERA_MODE.AI);
+			if (aiPlaying && stopBalls)cameraSwitchMode(CAMERA_MODE.AI);
+			if (!aiPlaying && !stopBalls)cameraSwitchMode(CAMERA_MODE.AI);
+		}
+
+		//moveCueParent();
 		GetAllBallsVelocity();
 		updateMenuSystem();
 		if (curScreen == "Help" && Input.GetMouseButtonUp(0))
@@ -2193,15 +2200,11 @@ public class mainScript : MonoBehaviour
 				Vector3 localEulerAngles3 = new Vector3(x2, y2, localEulerAngles2.z);
 				cueObjectTransform.localEulerAngles = localEulerAngles3;
 				cueGroupTransform.localPosition = new Vector3(spinCuePos.x, spinCuePos.y, 0f - (0.6f + cueDistance * 3.5f));
-				if (!aiPlaying)
-				{
-					cueRotValueX = inputToRotValue.x;
-					cueParentObjTransform.eulerAngles = new Vector3(0f, cueRotValueX, 0f);
-				}
+				if (!aiPlaying) cueParentObjTransform.eulerAngles = new Vector3(0f, rotationx, 0f);
 				inputToRotValue.y = Mathf.Clamp(inputToRotValue.y, 10f, 70f);
 				camParentRotValueY = Mathf.SmoothDampAngle(camParentRotValueY, inputToRotValue.y, ref camParentRotVelY, 0.2f);
-				camParentRotation = Quaternion.Euler(camParentRotValueY, inputToRotValue.x, 0f);
-				// camParentObjInGameTransform.rotation = camParentRotation;
+				camParentRotation = Quaternion.Euler(camParentRotValueY, rotationx, 0f);
+				camParentObjInGameTransform.rotation = camParentRotation;
 				cameraFreeViewParentObjTransform.rotation = camParentRotation;
 				Vector3 position5 = cameraFreeViewParentObjTransform.position;
 				float x3 = position5.x;
@@ -5456,9 +5459,9 @@ public class mainScript : MonoBehaviour
 				}
 			}
 
-			mousePositionXCurrent = mousePosition.x;
+			mousePositionXCurrent = rotationx;
 
-			inputToRotValue.x = inputToRotTarget.x;
+			inputToRotValue.x = rotationx;
 			Transform transform = cueObjectTransform;
 			float x = cueRotValueY;
 			Vector3 localEulerAngles = cueObjectTransform.localEulerAngles;
@@ -5466,9 +5469,9 @@ public class mainScript : MonoBehaviour
 			Vector3 localEulerAngles2 = cueObjectTransform.localEulerAngles;
 			transform.localEulerAngles = new Vector3(x, y, localEulerAngles2.z);
 			cueGroupTransform.localPosition = new Vector3(spinCuePos.x, spinCuePos.y, 0f - (0.5f + cueDistance * 3.5f));
-			cueRotValueX = inputToRotValue.x;
-			cueParentObjTransform.eulerAngles = new Vector3(0f, cueRotValueX, 0f);
-			camParentRotation = Quaternion.Euler(camParentRotValueY, inputToRotValue.x, 0f);
+			cueRotValueX = rotationx;
+			//cueParentObjTransform.eulerAngles = new Vector3(0f, rotationx, 0f);
+			camParentRotation = Quaternion.Euler(camParentRotValueY, rotationx, 0f);
 			camParentObjInGameTransform.rotation = camParentRotation;
 			cameraMode = cameraPrevMode;
 			if(cameraMode == CAMERA_MODE.NORMAL)cameraSwitchMode(cameraMode);
@@ -5524,7 +5527,7 @@ public class mainScript : MonoBehaviour
 		transform.localEulerAngles = new Vector3(x, y, localEulerAngles2.z);
 		cueGroupTransform.localPosition = new Vector3(spinCuePos.x, spinCuePos.y, 0f - (0.5f + cueDistance * 3.5f));
 		cueRotValueX = inputToRotValue.x;
-		cueParentObjTransform.eulerAngles = new Vector3(0f, cueRotValueX, 0f);
+		cueParentObjTransform.eulerAngles = new Vector3(0f, rotationx, 0f);
 		camParentRotation = Quaternion.Euler(camParentRotValueY, inputToRotValue.x, 0f);
 		camParentObjInGameTransform.rotation = camParentRotation;
 		cameraMode = cameraPrevMode;
