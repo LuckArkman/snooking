@@ -139,6 +139,7 @@ public class egHighScoresScript : MonoBehaviour
 
 	private IEnumerator egSubmitScore()
 	{
+		/*
 		if (scoreToSubmit > egHighScoresMinScoreVal)
 		{
 			formText = "Please Wait...";
@@ -170,6 +171,8 @@ public class egHighScoresScript : MonoBehaviour
 		{
 			refreshHighScoresGui();
 		}
+		*/
+		yield return null;
 	}
 
 	private void getUniqueID()
