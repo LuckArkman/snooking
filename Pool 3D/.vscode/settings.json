@@ -1,0 +1,14 @@
+{
+    "dotnet.preferCSharpExtension": true,
+    // Configurações do Intellisense para o Unity
+    "omnisharp.enableRoslynAnalyzers": false,
+    "omnisharp.useGlobalMono": "always",
+    "omnisharp.path": "/opt/Unity/Hub/Editor/2020.3.3f1/Editor/Data/Tools/RoslynScripts/msbuild/Current/bin",
+    "omnisharp.loggingLevel": "verbose",
+
+    // Configurações do Intellisense para C#
+    "csharp.format.enable": false,
+    "csharp.semanticHighlighting.enabled": true,
+    "csharp.suppressDotnetInstallWarning": true,
+    "dotnet.codeLens.enableReferencesCodeLens": false
+}
